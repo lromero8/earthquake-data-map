@@ -8,13 +8,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EarthquakesService {
 
-  endpoint: string = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson';
+  endpoint: string = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/';
 
   constructor(private http: HttpClient) { }
 
   // Get Earthquakes
-  getEarthquakes() {
-    return this.http.get<any>(`${this.endpoint}`)
+  getEarthquakes(range) {
+    return this.http.get<any>(`${this.endpoint + range}.geojson`)
       .pipe(map(data => {
         // console.log(data)
         return data;

@@ -9,6 +9,7 @@ import { MapService } from '../services/map/map.service'
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  model = 'all_day'
 
   constructor(
     private earthquakeService: EarthquakesService,
@@ -16,15 +17,20 @@ export class MapComponent implements OnInit {
   ){}
   
   ngOnInit() {
-    this.getEarthquakes();
+    this.getEarthquakes('all_week');
+  }
+
+  changeData(range){
+    console.log(range)
+    this.getEarthquakes(range);
   }
   
-  getEarthquakes(){
-    this.earthquakeService.getEarthquakes().subscribe(
+  getEarthquakes(range){
+    this.earthquakeService.getEarthquakes(range).subscribe(
       data => {
         
         this.map.buildMap(data)
-        console.log(data);
+        // console.log(data);
 
       }, 
       

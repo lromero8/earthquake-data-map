@@ -1,9 +1,100 @@
 <style>
     .match-parent {
-        width: 100%;
-        height: 100%;
+        width: 75%;
+        height: 75%;
         position: absolute;
+        top: 50%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+    }
+    .my-group {
+        position: absolute;
+        top: 5%;
+        left: 50%; 
+        transform: translate(-50%, -50%);
+    }
+    .dropdown-menu{
+        background-color: #21242A;
+        /* border: 1px solid #FFC107; */
+    }
+    .dropdown-item-hourly{
+        color: #0D6EFD;
+    }
+    .dropdown-item-hourly:hover{
+        background-color: #52575C;
+        color: #0D6EFD;
+    }
+    .dropdown-item-daily{
+        color: #198754;
+    }
+    .dropdown-item-daily:hover{
+        background-color: #52575C;
+        color: #198754;
+    }
+    .dropdown-item-weekly{
+        color: #FFC107;
+    }
+    .dropdown-item-weekly:hover{
+        background-color: #52575C;
+        color: #FFC107;
+    }
+    .dropdown-item-monthly{
+        color: #DC3545;
+    }
+    .dropdown-item-monthly:hover{
+        background-color: #52575C;
+        color: #DC3545;
     }
 </style>
+
+<!-- <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="model">
+    <label ngbButtonLabel class="btn btn-outline-primary btn-sm">
+      <input ngbButton type="radio" value="all_day" (click)="changeData('all_day')"> Today
+    </label>
+    <label ngbButtonLabel class="btn btn-outline-success btn-sm">
+      <input ngbButton type="radio" value="all_week" (click)="changeData('all_week')"> Week
+    </label>
+    <label ngbButtonLabel class="btn btn-outline-warning btn-sm">
+      <input ngbButton type="radio" value="all_month" (click)="changeData('all_month')"> Month
+    </label>
+</div> -->
+<div class="btn-group my-group">
+    <div class="btn-group" ngbDropdown role="group" container="body" aria-label="Button group with nested dropdown">
+        <button class="btn btn-outline-primary btn-sm" ngbDropdownToggle>Hourly</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+            <button class="dropdown-item-hourly" ngbDropdownItem (click)="changeData('all_hour')">All Earthquakes</button>
+            <button class="dropdown-item-hourly" ngbDropdownItem (click)="changeData('1.0_hour')">Magnitud 1.0+</button>
+            <button class="dropdown-item-hourly" ngbDropdownItem (click)="changeData('2.5_hour')">Magnitud 2.5+</button>
+            <button class="dropdown-item-hourly" ngbDropdownItem (click)="changeData('4.5_hour')">Magnitud 4.5+</button>
+        </div>
+    </div>
+    <div class="btn-group" ngbDropdown role="group" container="body" aria-label="Button group with nested dropdown">
+        <button class="btn btn-outline-success btn-sm" ngbDropdownToggle>Daily</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+            <button class="dropdown-item-daily" ngbDropdownItem (click)="changeData('all_day')">All Earthquakes</button>
+            <button class="dropdown-item-daily" ngbDropdownItem (click)="changeData('1.0_day')">Magnitud 1.0+</button>
+            <button class="dropdown-item-daily" ngbDropdownItem (click)="changeData('2.5_day')">Magnitud 2.5+</button>
+            <button class="dropdown-item-daily" ngbDropdownItem (click)="changeData('4.5_day')">Magnitud 4.5+</button>
+        </div>
+    </div>
+    <div class="btn-group" ngbDropdown role="group" container="body" aria-label="Button group with nested dropdown">
+        <button class="btn btn-outline-warning btn-sm" ngbDropdownToggle>Weekly</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+            <button class="dropdown-item-weekly" ngbDropdownItem (click)="changeData('all_week')">All Earthquakes</button>
+            <button class="dropdown-item-weekly" ngbDropdownItem (click)="changeData('1.0_week')">Magnitud 1.0+</button>
+            <button class="dropdown-item-weekly" ngbDropdownItem (click)="changeData('2.5_week')">Magnitud 2.5+</button>
+            <button class="dropdown-item-weekly" ngbDropdownItem (click)="changeData('4.5_week')">Magnitud 4.5+</button>
+        </div>
+    </div>
+    <div class="btn-group" ngbDropdown role="group" container="body" aria-label="Button group with nested dropdown">
+        <button class="btn btn-outline-danger btn-sm" ngbDropdownToggle>Monthly</button>
+        <div class="dropdown-menu" ngbDropdownMenu>
+            <button class="dropdown-item-monthly" ngbDropdownItem (click)="changeData('all_month')">All Earthquakes</button>
+            <button class="dropdown-item-monthly" ngbDropdownItem (click)="changeData('1.0_month')">Magnitud 1.0+</button>
+            <button class="dropdown-item-monthly" ngbDropdownItem (click)="changeData('2.5_month')">Magnitud 2.5+</button>
+            <button class="dropdown-item-monthly" ngbDropdownItem (click)="changeData('4.5_month')">Magnitud 4.5+</button>
+        </div>
+    </div>
+</div>
     
 <div class="match-parent" id="map"></div>

@@ -49,7 +49,7 @@ export class MapService {
     var map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      zoom: 2,
+      zoom: 1,
       center: [this.lng, this.lat]
     });
     // Add map controls
