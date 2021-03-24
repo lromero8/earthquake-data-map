@@ -9,7 +9,7 @@ import { MapService } from '../services/map/map.service'
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-  model = 'all_day'
+  range = 'All Weekly Earthquakes'
 
   constructor(
     private earthquakeService: EarthquakesService,
@@ -22,6 +22,58 @@ export class MapComponent implements OnInit {
 
   changeData(range){
     console.log(range)
+    switch (range) {
+      case '1.0_hour':
+        this.range = 'Hourly Earthquakes Mag > 1.0';
+        break;
+      case '2.5_hour':
+        this.range = 'Hourly Earthquakes Mag > 2.5';
+        break;
+      case '4.5_hour':
+        this.range = 'Hourly Earthquakes Mag > 4.5';
+        break;
+      case 'all_hour':
+        this.range = 'All Hourly Earthquakes';
+        break;
+      case '1.0_day':
+        this.range = 'Daily Earthquakes Mag > 1.0';
+        break;
+      case '2.5_day':
+        this.range = 'Daily Earthquakes Mag > 2.5';
+        break;
+      case '4.5_day':
+        this.range = 'Daily Earthquakes Mag > 4.5';
+        break;
+      case 'all_day':
+        this.range = 'All Daily Earthquakes';
+        break;
+      case '1.0_week':
+        this.range = 'Weekly Earthquakes Mag > 1.0';
+        break;
+      case '2.5_week':
+        this.range = 'Weekly Earthquakes Mag > 2.5';
+        break;
+      case '4.5_week':
+        this.range = 'Weekly Earthquakes Mag > 4.5';
+        break;
+      case 'all_week':
+        this.range = 'All Weekly Earthquakes';
+        break;
+      case '1.0_month':
+        this.range = 'Monthly Earthquakes Mag > 1.0';
+        break;
+      case '2.5_month':
+        this.range = 'Monthly Earthquakes Mag > 2.5';
+        break;
+      case '4.5_month':
+        this.range = 'Monthly Earthquakes Mag > 4.5';
+        break;
+      case 'all_month':
+        this.range = 'All Monthly Earthquakes';
+        break;      
+      default:
+        break;
+    }
     this.getEarthquakes(range);
   }
   

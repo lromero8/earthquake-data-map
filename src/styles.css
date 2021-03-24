@@ -2,6 +2,30 @@
 
 body{
     background-color: #21242A;
+    font-family: 'Roboto', sans-serif;
+    color: #dfe5eb;
+}
+
+#map {
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 60%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+
+/* Search bar */
+/* .geocoder {
+    position: absolute;
+    z-index: 1;
+    width: 50%;
+    left: 50%;
+    margin-left: -25%;
+    top: 10%;
+} */
+.mapboxgl-ctrl-geocoder {
+    min-width: 100%;
 }
 
 /* Marker tweaks */

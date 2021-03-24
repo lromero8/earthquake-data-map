@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+
 
 
 @Injectable({
@@ -49,14 +51,60 @@ export class MapService {
     var map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
-      zoom: 1,
+      zoom: 1.5,
       center: [this.lng, this.lat]
     });
+
+    // Search bar
+    var geocoder = new MapboxGeocoder({ // Initialize the geocoder
+      accessToken: mapboxgl.accessToken, // Set the access token
+      placeholder: 'Search by country, state, city',
+      // types: 'poi',
+      // see https://docs.mapbox.com/api/search/#geocoding-response-object for information about the schema of each response feature
+      render: function (item) {
+          // extract the item's maki icon or use a default
+          var maki = item.properties.maki || 'marker';
+          return (
+              "<div class='geocoder-dropdown-item'><img class='geocoder-dropdown-icon' src='https://unpkg.com/@mapbox/maki@6.1.0/icons/" +
+              maki +
+              "-15.svg'><span class='geocoder-dropdown-text'>" +
+              item.text +
+              '</span></div>'
+          );
+      },
+      mapboxgl: mapboxgl, // Set the mapbox-gl instance
+      marker: false, // Do not use the default marker style
+    });
+
+    // Add the geocoder to the map
+    map.addControl(geocoder);
+    // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+    
+
     // Add map controls
     map.addControl(new mapboxgl.NavigationControl());
 
+    // Add geolocate control
+    map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
+    }));
+
+    // Add scale
+    // var scale = new mapboxgl.ScaleControl({
+    //   maxWidth: 80,
+    //   unit: 'imperial'
+    // });
+    // map.addControl(scale);
+       
+    // scale.setUnit('metric');
+
+
     // Add markers
-    /// Add realtime firebase data on map load
+    /// Add data on map load
     map.on('load', (event) => {
 
       /// register source
@@ -145,7 +193,7 @@ export class MapService {
         new mapboxgl.Popup()
           .setLngLat(coordinates)
           .setHTML(
-            "<h3><span style='color: transparent; text-shadow: 0 0 0 " + colorIntensity +"'>⭕️</span> Properties</h3>" +
+            "<h3><span style='color: transparent; text-shadow: 0 0 0 " + colorIntensity +"'>⭕️</span> Details</h3>" +
             '<h4>' + description + '</h4>'
           )
           .addTo(map);
