@@ -1,44 +1,3 @@
-<style>
-    .my-group {
-        /* position: absolute; */
-        /* top: 5%; */
-        /* left: 50%;  */
-        /* transform: translate(-50%, -50%); */
-    }
-    .dropdown-menu{
-        background-color: #21242A;
-        /* border: 1px solid #FFC107; */
-    }
-    .dropdown-item-hourly{
-        color: #0D6EFD;
-    }
-    .dropdown-item-hourly:hover{
-        background-color: #52575C;
-        color: #0D6EFD;
-    }
-    .dropdown-item-daily{
-        color: #198754;
-    }
-    .dropdown-item-daily:hover{
-        background-color: #52575C;
-        color: #198754;
-    }
-    .dropdown-item-weekly{
-        color: #FFC107;
-    }
-    .dropdown-item-weekly:hover{
-        background-color: #52575C;
-        color: #FFC107;
-    }
-    .dropdown-item-monthly{
-        color: #DC3545;
-    }
-    .dropdown-item-monthly:hover{
-        background-color: #52575C;
-        color: #DC3545;
-    }
-</style>
-
 <!-- <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="model">
     <label ngbButtonLabel class="btn btn-outline-primary btn-sm">
       <input ngbButton type="radio" value="all_day" (click)="changeData('all_day')"> Today
@@ -50,6 +9,9 @@
       <input ngbButton type="radio" value="all_month" (click)="changeData('all_month')"> Month
     </label>
 </div> -->
+<script>
+
+</script>
 <div class="d-flex justify-content-center mt-5">
     <div class="row">
         <div class="col">
@@ -107,6 +69,14 @@
         </div>
     </div>
 </div>
-    
-<div id="map"></div>
+
+<div class="my-container">
+    <div class='sidebar'>
+        <div class='heading'>
+          <h1>Significant Earthquakes</h1>
+        </div>
+        <div id='listings' class='listings'></div>
+    </div>
+    <div id="map" class="map"></div>
+</div>
 <!-- <div id="geocoder" class="geocoder"></div> -->

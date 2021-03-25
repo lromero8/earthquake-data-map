@@ -9,7 +9,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 })
 export class MapService {
   map: mapboxgl.Map;
-  // style = 'mapbox://styles/mapbox/streets-v11';
+  // style = 'mapbox://styles/mapbox/light-v10';
   style = 'mapbox://styles/lromero8/ckmlgs6l407ay18ntxg06n5k6';
   lat = 0;
   lng = 0;
@@ -81,10 +81,6 @@ export class MapService {
     // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
     
-
-    // Add map controls
-    map.addControl(new mapboxgl.NavigationControl());
-
     // Add geolocate control
     map.addControl(new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -92,6 +88,10 @@ export class MapService {
       },
       trackUserLocation: true
     }));
+
+    // Add map controls
+    map.addControl(new mapboxgl.NavigationControl());
+
 
     // Add scale
     // var scale = new mapboxgl.ScaleControl({
@@ -106,6 +106,8 @@ export class MapService {
     // Add markers
     /// Add data on map load
     map.on('load', (event) => {
+
+      // buildLocationList(data);
 
       /// register source
       map.addSource('usgs', {
@@ -161,43 +163,135 @@ export class MapService {
       })
 
 
+      buildLocationList(data);
+
+      /* This will let you use the .remove() function later on */
+      // if (!('remove' in Element.prototype)) {
+      //   Element.prototype.remove = function() {
+      //     if (this.parentNode) {
+      //       this.parentNode.removeChild(this);
+      //     }
+      //   };
+      // }
+
+
+      function buildLocationList(data) {
+        data.features.forEach(function(store, i){
+          /**
+           * Create a shortcut for `store.properties`,
+           * which will be used several times below.
+           **/
+          var prop = store.properties;
+          // console.log(prop)
+      
+          /* Add a new listing section to the sidebar. */
+          var listings = document.getElementById('listings');
+          var listing = listings.appendChild(document.createElement('div'));
+          /* Assign a unique `id` to the listing. */
+          listing.id = "listing-" + data.features[i].properties.code;
+          /* Assign the `item` class to each listing for styling. */
+          listing.className = 'item';
+      
+          /* Add the link to the individual listing created above. */
+          var link = listing.appendChild(document.createElement('a'));
+          link.href = '#';
+          link.className = 'title';
+          link.id = "link-" + prop.code;
+          link.innerHTML = prop.title;
+      
+          /* Add details to the individual listing. */
+          var details = listing.appendChild(document.createElement('div'));
+          details.innerHTML = prop.place;
+          if (prop.tsunami) {
+            details.innerHTML += ' · ' + prop.tsunami;
+          }
+          // if (prop.distance) {
+          //   var roundedDistance = Math.round(prop.distance * 100) / 100;
+          //   details.innerHTML +=
+          //     '<p><strong>' + roundedDistance + ' miles away</strong></p>';
+          // }
+
+          link.addEventListener('click', function(e){
+            for (var i = 0; i < data.features.length; i++) {
+              if (this.id === "link-" + data.features[i].properties.code) {
+                var clickedListing = data.features[i];
+                // console.log(e)
+                createPopUp(e, clickedListing);
+                flyToStore(clickedListing);
+              }
+            }  
+            var activeItem = document.getElementsByClassName('active');
+            if (activeItem[0]) {
+              activeItem[0].classList.remove('active');
+            }
+            // this.parentNode.classList.add('active');
+          });
+
+
+        });
+      }
+
+
+
       // When a click event occurs on a feature in the places layer, open a popup at the
       // location of the feature, with description HTML from its properties.
       map.on('click', 'usgs', function (e) {
-        var coordinates = e.features[0].geometry.coordinates.slice();
         // console.log(coordinates)
-        let dateObject = new Date(e.features[0].properties.time) // passing epoch timestamp
-        var description = 
-          '<b>• Location: </b>' + e.features[0].properties.place + '<br>' +
-          '<b>• Magnitud: </b>' + e.features[0].properties.mag + '<br>' +
-          '<b>• Time: </b>' + dateObject;
 
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
+        createPopUp(e, e.features[0])
+        flyToStore(e.features[0])
 
-        let mag = e.features[0].properties.mag;
-        let colorIntensity
-
-        if (mag <= 2) {
-          colorIntensity = '#FCCA2B'
-        } else if (mag > 2 && mag < 4){
-          colorIntensity = '#FF711F'
-        } else {
-          colorIntensity = '#C81E11'
-        }
-        
-        new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(
-            "<h3><span style='color: transparent; text-shadow: 0 0 0 " + colorIntensity +"'>⭕️</span> Details</h3>" +
-            '<h4>' + description + '</h4>'
-          )
-          .addTo(map);
         });
+
+        function flyToStore(currentFeature) {
+          // console.log(currentFeature)
+          map.flyTo({
+            center: currentFeature.geometry.coordinates,
+            zoom: 7
+          });
+        }
+
+        function createPopUp(e, currentFeature) {
+          var popUps = document.getElementsByClassName('mapboxgl-popup');
+          /** Check if there is already a popup on the map and if so, remove it */
+          if (popUps[0]) popUps[0].remove();
+
+          // console.log(currentFeature)
+          var coordinates = currentFeature.geometry.coordinates.slice();
+          let dateObject = new Date(currentFeature.properties.time) // passing epoch timestamp
+          var description = 
+            '<b>• Location: </b>' + currentFeature.properties.place + '<br>' +
+            '<b>• Magnitud: </b>' + currentFeature.properties.mag + '<br>' +
+            '<b>• Time: </b>' + dateObject;
+  
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          // while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          //   coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          // }
+  
+          let mag = currentFeature.properties.mag;
+          let colorIntensity
+  
+          if (mag <= 2) {
+            colorIntensity = '#FCCA2B'
+          } else if (mag > 2 && mag < 4){
+            colorIntensity = '#FF711F'
+          } else {
+            colorIntensity = '#C81E11'
+          }
+        
+          var popup = new mapboxgl.Popup({ closeOnClick: false })
+            .setLngLat(coordinates)
+            .setHTML(
+              "<h3><span style='color: transparent; text-shadow: 0 0 0 " + colorIntensity +"'>⭕️</span> Details</h3>" +
+              '<h4>' + description + '</h4>'
+            )
+            .addTo(map);   
+
+
+        }
         
         // Change the cursor to a pointer when the mouse is over the places layer.
         map.on('mouseenter', 'usgs', function () {

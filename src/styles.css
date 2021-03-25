@@ -2,18 +2,136 @@
 
 body{
     background-color: #21242A;
+}
+
+.display-6{
     font-family: 'Roboto', sans-serif;
     color: #dfe5eb;
 }
 
-#map {
+h1 {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 20px 2px;
+  }
+
+  a {
+    color: #404040;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #101010;
+  }
+
+  /* The page is split between map and sidebar - the sidebar gets 1/3, map
+  gets 2/3 of the page. You can adjust this to your personal liking. */
+  .sidebar {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+    
+  }
+
+  .map {
+    position: absolute;
+    left: 25%;
+    width: 75%;
+    top: 0;
+    bottom: 0;
+  }
+
+  .heading {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 10px;
+  }
+
+  .my-container{
     width: 75%;
     height: 75%;
     position: absolute;
     top: 60%;
     left: 50%; 
     transform: translate(-50%, -50%);
+  }
+
+  /* Sidebar */
+.listings {
+    height: 100%;
+    overflow: auto;
+    padding-bottom: 60px;
+    background-color: white;
+    /* background-color: #1A2637; */
 }
+  
+.listings .item {
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.listings .item:last-child { border-bottom: none; }
+
+.listings .item .title {
+    display: block;
+    color: #00853e;
+    /* color: rgb(238, 136, 89); */
+    font-weight: 700;
+}
+
+.listings .item .title small { font-weight: 400; }
+
+.listings .item.active .title,
+.listings .item .title:hover { color: #8cc63f; }
+
+.listings .item.active {
+    background-color: #f8f8f8;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-left: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00853e;
+    border-radius: 0;
+}
+
+.clearfix { display: block; }
+
+.clearfix::after {
+    content: '.';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+/* #map {
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 60%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+} */
 
 /* Search bar */
 /* .geocoder {
@@ -34,7 +152,11 @@ body{
 }
      
 .mapboxgl-popup-close-button {
-    display: none;
+    /* display: none; */
+    color: white;
+    padding-right: 15px;
+    margin-top: -5px;
+    font-size: 25px;
 }
 .mapboxgl-popup-content {
     padding: 0;
