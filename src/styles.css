@@ -4,9 +4,17 @@ body{
     background-color: #21242A;
 }
 
-.display-6{
-    font-family: 'Roboto', sans-serif;
+span{
     color: #dfe5eb;
+}
+
+.my-container{
+    width: 75%;
+    height: 75%;
+    position: absolute;
+    top: 60%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
 }
 
 h1 {
@@ -15,67 +23,85 @@ h1 {
     font-weight: 400;
     line-height: 20px;
     padding: 20px 2px;
-  }
+}
 
-  a {
-    color: #404040;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #101010;
-  }
-
-  /* The page is split between map and sidebar - the sidebar gets 1/3, map
-  gets 2/3 of the page. You can adjust this to your personal liking. */
-  .sidebar {
+.sidebar {
     position: absolute;
-    width: 25%;
+    width: 0;
     height: 100%;
     top: 0;
     left: 0;
-    overflow: hidden;
-    border-right: 1px solid rgba(0, 0, 0, 0.25);
-    
-  }
+    overflow: hidden;    
+}
 
-  .map {
-    position: absolute;
-    left: 25%;
-    width: 75%;
-    top: 0;
-    bottom: 0;
-  }
-
-  .heading {
-    background: #fff;
+.heading {
+    font-family: 'Roboto', sans-serif;
+    background: #1A2637;
+    color: white;
     border-bottom: 1px solid #eee;
     height: 60px;
     line-height: 60px;
     padding: 0 10px;
-  }
+}
 
-  .my-container{
-    width: 75%;
-    height: 75%;
+/* Sidebar */
+.sidebar a {
+    padding: 8px 8px 8px 8px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar .closebtn {
     position: absolute;
-    top: 60%;
-    left: 50%; 
-    transform: translate(-50%, -50%);
-  }
+    top: -8px;
+    right: 15px;
+    font-size: 36px;
+    margin-left: 50px;
+}
 
-  /* Sidebar */
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;    
+    position:absolute; 
+    top:10px; 
+    left:10px; 
+    z-index:1;
+    border-radius: 3px;
+}
+
+.openbtn:hover {
+    /* background-color: #444; */
+    background-color: #1A2637;
+}
+
+.details{
+    padding-left: 8px;
+    color: rgb(117, 117, 117);
+}
+
 .listings {
     height: 100%;
     overflow: auto;
     padding-bottom: 60px;
-    background-color: white;
+    /* background-color: white; */
     /* background-color: #1A2637; */
+    background-color: #111;
 }
   
 .listings .item {
     display: block;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #212529;
     padding: 10px;
     text-decoration: none;
 }
@@ -83,16 +109,23 @@ h1 {
 .listings .item:last-child { border-bottom: none; }
 
 .listings .item .title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
     display: block;
-    color: #00853e;
+    /* color: #00853e; */
     /* color: rgb(238, 136, 89); */
-    font-weight: 700;
+    color: #00853e;
+    /* font-weight: 700; */
 }
 
 .listings .item .title small { font-weight: 400; }
 
 .listings .item.active .title,
-.listings .item .title:hover { color: #8cc63f; }
+.listings .item .title:hover { 
+    /* color: #8cc63f; */
+    /* color: rgb(117, 117, 117); */
+    color: white;
+}
 
 .listings .item.active {
     background-color: #f8f8f8;
@@ -124,26 +157,44 @@ h1 {
     visibility: hidden;
 }
 
-/* #map {
-    width: 75%;
-    height: 75%;
-    position: absolute;
-    top: 60%;
-    left: 50%; 
-    transform: translate(-50%, -50%);
-} */
+#main {
+    position:relative;
+    transition: margin-left .5s;
+    padding: 16px;
+    height: 100%;
+}
 
-/* Search bar */
-/* .geocoder {
-    position: absolute;
-    z-index: 1;
-    width: 50%;
-    left: 50%;
-    margin-left: -25%;
-    top: 10%;
-} */
+#map { 
+    position: absolute; 
+    top: 0; right: 0; 
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 100%; 
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+}
+
+/* Search bar tweaks */
 .mapboxgl-ctrl-geocoder {
     min-width: 100%;
+}
+
+.geocoder-dropdown-item {
+    padding: 5px;
+}
+
+.geocoder-dropdown-icon {
+    margin-right: 10px;
+}
+
+.geocoder-dropdown-text {
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    /* font-size: larger; */
 }
 
 /* Marker tweaks */
@@ -170,6 +221,7 @@ h3, h4 {
 }
 .mapboxgl-popup-content h3 {
     background: #3D5E80;
+    /* background: #00853e; */
     color: #fff;
     margin: 0;
     display: block;

@@ -20,8 +20,7 @@ export class MapComponent implements OnInit {
     this.getEarthquakes('all_week');
   }
 
-  changeData(range){
-    console.log(range)
+  selectLabel(range){
     switch (range) {
       case '1.0_hour':
         this.range = 'Hourly Earthquakes Mag > 1.0';
@@ -74,6 +73,10 @@ export class MapComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  changeData(range){
+    this.selectLabel(range);
     this.getEarthquakes(range);
   }
   
@@ -94,6 +97,16 @@ export class MapComponent implements OnInit {
         // do something when operation successfully complete
       });
     //Consuming service  
+  }
+
+  openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+  
+  closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
   }
 
 }

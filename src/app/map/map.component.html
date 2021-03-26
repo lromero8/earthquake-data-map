@@ -1,17 +1,3 @@
-<!-- <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="model">
-    <label ngbButtonLabel class="btn btn-outline-primary btn-sm">
-      <input ngbButton type="radio" value="all_day" (click)="changeData('all_day')"> Today
-    </label>
-    <label ngbButtonLabel class="btn btn-outline-success btn-sm">
-      <input ngbButton type="radio" value="all_week" (click)="changeData('all_week')"> Week
-    </label>
-    <label ngbButtonLabel class="btn btn-outline-warning btn-sm">
-      <input ngbButton type="radio" value="all_month" (click)="changeData('all_month')"> Month
-    </label>
-</div> -->
-<script>
-
-</script>
 <div class="d-flex justify-content-center mt-5">
     <div class="row">
         <div class="col">
@@ -65,18 +51,27 @@
 <div class="d-flex justify-content-center mt-5">
     <div class="row">
         <div class="col">
-            <h2 class="display-6">{{range}}</h2>
+            <span>{{range}}</span>
         </div>
     </div>
 </div>
 
+<!--Interactive Sidebar and Map-->
 <div class="my-container">
-    <div class='sidebar'>
-        <div class='heading'>
-          <h1>Significant Earthquakes</h1>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">×</a>
+        
+        <div class="heading">
+            <h1>Earthquakes</h1>
         </div>
-        <div id='listings' class='listings'></div>
+
+        <div id="listings" class="listings"></div>
     </div>
-    <div id="map" class="map"></div>
-</div>
-<!-- <div id="geocoder" class="geocoder"></div> -->
+
+    <div id="main">
+        <button class="openbtn" (click)="openNav()">☰</button>  
+        <div id="map" class="map"></div>
+    </div>
+</div>  
+<!--Interactive Sidebar Map-->
