@@ -16,7 +16,6 @@ export class EarthquakesService {
   getEarthquakes(range) {
     return this.http.get<any>(`${this.endpoint + range}.geojson`)
       .pipe(map(data => {
-        // console.log(data)
         return data;
       }));
   }
