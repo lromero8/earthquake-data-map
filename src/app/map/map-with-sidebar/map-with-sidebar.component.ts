@@ -19,7 +19,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
                   <button class="openbtn" (click)="openNav()">☰</button>  
                   <div id="map" class="map"></div>
               </div>
-            </div>  
+            </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
   })
