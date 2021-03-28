@@ -8,19 +8,26 @@ import { MapComponent } from './map/map.component';
 import { DropdownButtons } from './map/dropdown-buttons/dropdown-buttons.component';
 import { MapWithSidebar } from './map/map-with-sidebar/map-with-sidebar.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartsComponent } from './charts/charts.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     DropdownButtons,
-    MapWithSidebar
+    MapWithSidebar,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
