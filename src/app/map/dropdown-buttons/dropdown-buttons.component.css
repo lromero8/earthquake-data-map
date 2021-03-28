@@ -1,0 +1,36 @@
+.dropdown-menu{
+    background-color: #21242A;
+    /* border: 1px solid #FFC107; */
+}
+.dropdown-item-hourly{
+    color: #0D6EFD;
+}
+.dropdown-item-hourly:hover{
+    background-color: #52575C;
+    color: #0D6EFD;
+}
+.dropdown-item-daily{
+    color: #198754;
+}
+.dropdown-item-daily:hover{
+    background-color: #52575C;
+    color: #198754;
+}
+.dropdown-item-weekly{
+    color: #FFC107;
+}
+.dropdown-item-weekly:hover{
+    background-color: #52575C;
+    color: #FFC107;
+}
+.dropdown-item-monthly{
+    color: #DC3545;
+}
+.dropdown-item-monthly:hover{
+    background-color: #52575C;
+    color: #DC3545;
+}
+
+span, h3{
+    font-family: 'Roboto', sans-serif;
+}

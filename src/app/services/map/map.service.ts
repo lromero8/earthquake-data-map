@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import * as mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
@@ -9,6 +10,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 })
 export class MapService {
   map: mapboxgl.Map;
+  accessToken = environment.mapbox.accessToken
   // style = 'mapbox://styles/mapbox/light-v10';
   style = 'mapbox://styles/lromero8/ckmlgs6l407ay18ntxg06n5k6';
   lat = 0;
@@ -18,11 +20,11 @@ export class MapService {
   source: any;
   markers: any;
 
-  constructor() { }
+  constructor() {}
 
   buildMap(data){
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoibHJvbWVybzgiLCJhIjoiY2ttbGZpMDRlMDU0YzJ2bnhhMGV3MXk4dCJ9.erq_VeKqSSG1ifnvZjwP7Q';
+    mapboxgl.accessToken = this.accessToken;
     var map = new mapboxgl.Map({
       container: 'map',
       style: this.style,
